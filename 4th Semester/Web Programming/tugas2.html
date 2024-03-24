@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tugas 2 - Web Programming</title>
+  </head>
+  <body>
+    <main>
+      <nav
+        style="
+          width: 100%;
+          height: 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 4px 8px;
+          border-bottom: 1px solid lightgray;
+        "
+      >
+        <div>
+          <a href="#">Home</a>
+        </div>
+        <div style="display: flex; gap: 4px; align-items: center">
+          <a href="#">Tugas 1</a>
+          <a href="tugas2.html">Tugas 2</a>
+          <a href="#">Tugas 3</a>
+        </div>
+      </nav>
+
+      <h1>Formulir Pendaftaran</h1>
+      <p>Silahkan isi formulir pendaftaran di bawah ini dengan data yang benar.</p>
+      <hr />
+
+      <form>
+        <label for="nama">Nama</label>
+        <input type="text" name="nama" id="nama" required />
+        <br />
+        <label for="nim">NIM</label>
+        <input type="text" name="nim" id="nim" required />
+        <br />
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+        <br />
+        <label for="prodi">Program Studi</label>
+        <select name="prodi" id="prodi" required>
+          <option value="D3 Teknik Informatika">D3 Teknik Informatika</option>
+          <option value="D3 Manajemen Informatika">D3 Manajemen Informatika</option>
+          <option value="D3 Teknik Komputer">D3 Teknik Komputer</option>
+        </select>
+      </form>
+
+      <button type="submit" onclick="submitForm()">Kirim</button>
+
+      <hr />
+      <h1>Data Pendaftar</h1>
+      <table style="width: 100%; margin-top: 16px; border-collapse: collapse">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Email</th>
+            <th>Program Studi</th>
+          </tr>
+        </thead>
+        <tbody id="table-body" style="text-align: center">
+          <!-- Data will be displayed here -->
+        </tbody>
+      </table>
+    </main>
+
+    <script>
+      // JavaScript code
+      let nama = document.getElementById("nama");
+      let nim = document.getElementById("nim");
+      let email = document.getElementById("email");
+      let prodi = document.getElementById("prodi");
+      let data = [];
+
+      function submitForm() {
+        if (!nama.value || !nim.value || !email.value || !prodi.value) {
+          alert("Data tidak boleh kosong!");
+          return;
+        } else if (data.find((item) => item.nim === nim.value)) {
+          alert("NIM sudah terdaftar!");
+          return;
+        }
+        data.push({
+          nama: nama.value,
+          nim: nim.value,
+          email: email.value,
+          prodi: prodi.value,
+        });
+
+        console.log(data);
+        displayData();
+      }
+
+      function displayData() {
+        let tableBody = document.getElementById("table-body");
+        tableBody.innerHTML = "";
+
+        data.forEach((item) => {
+          let row = document.createElement("tr");
+          row.innerHTML = `
+			<td>${item.nama}</td>
+			<td>${item.nim}</td>
+			<td>${item.email}</td>
+			<td>${item.prodi}</td>
+		  `;
+
+          tableBody.appendChild(row);
+        });
+      }
+    </script>
+  </body>
+</html>
